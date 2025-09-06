@@ -1,0 +1,9 @@
+--- ui/thirdparty/meson.build.orig	2025-09-05 21:52:35 UTC
++++ ui/thirdparty/meson.build
+@@ -1,5 +1,5 @@ noc_ss = ss.source_set()
+ noc_ss = ss.source_set()
+-if host_os == 'linux'
++if host_os == 'freebsd'
+   noc_ss.add([gtk, files('noc_file_dialog/noc_file_dialog_gtk.c')])
+ elif host_os == 'windows'
+   noc_ss.add(files('noc_file_dialog/noc_file_dialog_win32.cc'))
