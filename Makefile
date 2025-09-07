@@ -19,28 +19,17 @@ BUILD_DEPENDS=	gdb>0:devel/gdb \
 		cmake-core>0:devel/cmake-core \
 		meson>0:devel/meson \
 		ninja>0:devel/ninja \
-		alsa-lib>0:audio/alsa-lib \
 		bison>0:devel/bison \
-		capstone>0:devel/capstone \
 		ccache>0:devel/ccache \
 		cmocka>0:sysutils/cmocka \
 		cyrus-sasl>0:security/cyrus-sasl2 \
 		diffutils>0:textproc/diffutils \
-		fusefs-libs3>0:filesystems/fusefs-libs3 \
-		gettext-tools>0:devel/gettext-tools \
-		git>0:devel/git \
-		gnutls>0:security/gnutls \
 		gsed>0:textproc/gsed \
 		gtk-vnc>0:net/gtk-vnc \
 		json-c>0:devel/json-c \
-		libgcrypt>0:security/libgcrypt \
 		libjpeg-turbo>0:graphics/libjpeg-turbo \
-		libnfs>0:net/libnfs \
-		libspice-server>0:devel/libspice-server \
 		libtasn1>0:security/libtasn1 \
-		lzo2>0:archivers/lzo2 \
 		mtools>0:filesystems/mtools \
-		nettle>0:security/nettle \
 		opencv>0:graphics/opencv \
 		py311-numpy>0:math/py-numpy \
 		py311-pillow>0:graphics/py-pillow \
@@ -50,16 +39,10 @@ BUILD_DEPENDS=	gdb>0:devel/gdb \
 		py311-sphinx_rtd_theme>0:textproc/py-sphinx_rtd_theme \
 		py311-tomli>0:textproc/py-tomli \
 		rpm2cpio>0:archivers/rpm2cpio \
-		rust>0:lang/rust \
-		rust-bindgen-cli>0:devel/rust-bindgen-cli \
-		snappy>0:archivers/snappy \
-		sndio>0:audio/sndio \
 		socat>0:net/socat \
 		spice-protocol>0:devel/spice-protocol \
 		tesseract>0:graphics/tesseract \
-		usbredir>0:net/usbredir \
 		virglrenderer>0:x11/virglrenderer \
-		vte3>0:x11-toolkits/vte3 \
 		xorriso>0:sysutils/xorriso \
 		nlohmann-json>0:devel/nlohmann-json
 
@@ -72,8 +55,8 @@ LIB_DEPENDS=	libdbus-1.so:devel/dbus \
 		libpixman-1.so:x11/pixman \
 		libpng.so:graphics/png \
 		libsamplerate.so:audio/libsamplerate \
-		libssh2.so:security/libssh2 \
-		libxxhash.so:devel/xxhash
+		libspice-server.so:devel/libspice-server \
+		libxxhash.so.0:devel/xxhash
 
 USES=		gl gmake gnome pkgconfig python:build sdl shebangfix
 USE_GL=		gl
@@ -82,9 +65,8 @@ USE_SDL=	sdl2 image2
 SHEBANG_GLOB=	*.sh
 
 USE_GITHUB=	yes
-USE_GITLAB=	nodefault
 GH_ACCOUNT=	xemu-project
-GH_TUPLE?=	openssl:openssl:openssl-3.0.9:openssl/roms/edk2/CryptoPkg/Library/OpensslLib/openssl \
+GH_TUPLE=	openssl:openssl:openssl-3.0.9:openssl/roms/edk2/CryptoPkg/Library/OpensslLib/openssl \
         	ucb-bar:berkeley-softfloat-3:b64af41c3276f97f0e181920400ee056b9c88037:berkeleysoftfloat3/roms/edk2/ArmPkg/Library/ArmSoftFloatLib/berkeley-softfloat-3 \
         	tianocore:edk2-cmocka:cmocka-1.1.5-23-g1cc9cde:edk2cmocka/roms/edk2/UnitTestFrameworkPkg/Library/CmockaLib/cmocka \
         	kkos:oniguruma:v6.9.4_mark1:oniguruma/roms/edk2/MdeModulePkg/Universal/RegularExpressionDxe/oniguruma \
@@ -109,7 +91,8 @@ GH_TUPLE?=	openssl:openssl:openssl-3.0.9:openssl/roms/edk2/CryptoPkg/Library/Ope
 		xemu-project:nv2a_vsh_cpu:561fe80da57a881f89000256b459440c0178a7ce:nv2avshcpu/subprojects/nv2a_vsh_cpu \
 		marzer:tomlplusplus:30172438cee64926dc41fdd9c11fb3ba5b2ba9de:tomlplusplus/subprojects/tomlplusplus
 
-GL_TUPLE?=	qemu-project:berkeley-softfloat-3:b64af41c3276f97f0e181920400ee056b9c88037:berkeleysoftfloat3/subprojects/berkeley-softfloat-3 \
+USE_GITLAB=	nodefault
+GL_TUPLE=	qemu-project:berkeley-softfloat-3:b64af41c3276f97f0e181920400ee056b9c88037:berkeleysoftfloat3/subprojects/berkeley-softfloat-3 \
 		qemu-project:berkeley-testfloat-3:e7af9751d9f9fd3b47911f51a5cfd08af256a9ab:berkeleytestfloat3/subprojects/berkeley-testfloat-3
 
 LDFLAGS+=	-Wl,--as-needed
@@ -136,7 +119,7 @@ post-patch:
 		${WRKSRC}/XEMU_COMMIT
 
 do-build:
-	cd ${WRKSRC} && ./build.sh --disable-download
+	cd ${WRKSRC} && ./build.sh --disable-download --enable-pixman --enable-png --enable-spice --enable-spice-protocol --enable-virglrenderer --enable-sdl-image
 
 do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/dist/xemu ${STAGEDIR}${PREFIX}/bin/xemu
