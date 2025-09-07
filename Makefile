@@ -1,5 +1,6 @@
 PORTNAME=	xemu
-PORTVERSION=	0.8.96.6.gb8cd8ba
+DISTVERSIONPREFIX=	v
+DISTVERSION=	0.8.97
 CATEGORIES=	emulators
 
 MAINTAINER=	kreinholz@gmail.com
@@ -82,7 +83,6 @@ SHEBANG_GLOB=	*.sh
 USE_GITHUB=	yes
 GH_ACCOUNT=	xemu-project
 GH_PROJECT=	xemu
-GH_TAGNAME=	b8cd8ba
 GH_TUPLE?=	openssl:openssl:openssl-3.0.9:openssl/roms/edk2/CryptoPkg/Library/OpensslLib/openssl \
         	ucb-bar:berkeley-softfloat-3:b64af41c3276f97f0e181920400ee056b9c88037:berkeleysoftfloat3/roms/edk2/ArmPkg/Library/ArmSoftFloatLib/berkeley-softfloat-3 \
         	tianocore:edk2-cmocka:cmocka-1.1.5-23-g1cc9cde:edk2cmocka/roms/edk2/UnitTestFrameworkPkg/Library/CmockaLib/cmocka \
