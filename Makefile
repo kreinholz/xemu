@@ -130,11 +130,18 @@ MESON_ARGS+=	--wrap-mode=nodownload
 
 PLIST_FILES=	bin/xemu
 
+XEMU_VERSION=	0.8.97
+XEMU_COMMIT=	22ea58291dab392a2316f1cf4ced3f52e05142f9
+
 post-patch:
 	@${FIND} ${WRKSRC} -type f -name "*.py" | \
 		${XARGS} ${REINPLACE_CMD} -e 's|python3|python${PYTHON_VER}|g'
 	@${FIND} ${WRKSRC} -type f -name "*.sh" | \
 		${XARGS} ${REINPLACE_CMD} -e 's|python3|python${PYTHON_VER}|g'
+	@${REINPLACE_CMD} -e 's|%%XEMU_VERSION%%|${XEMU_VERSION}|' \
+		${WRKSRC}/XEMU_VERSION
+	@${REINPLACE_CMD} -e 's|%%XEMU_COMMIT%%|${XEMU_COMMIT}|' \
+		${WRKSRC}/XEMU_COMMIT
 
 do-build:
 	cd ${WRKSRC} && ./build.sh

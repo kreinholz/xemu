@@ -1,4 +1,4 @@
 --- XEMU_VERSION.orig	2025-09-07 15:24:36 UTC
 +++ XEMU_VERSION
 @@ -0,0 +1 @@
-+0.8.97
++%%XEMU_VERSION%%
