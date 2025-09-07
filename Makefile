@@ -20,13 +20,14 @@ BUILD_DEPENDS=	gdb>0:devel/gdb \
 		ninja>0:devel/ninja \
 		alsa-lib>0:audio/alsa-lib \
 		bison>0:devel/bison \
-		capstone>0:devel/capstone4 \
+		capstone>0:devel/capstone \
 		ccache>0:devel/ccache \
 		cmocka>0:sysutils/cmocka \
 		cyrus-sasl>0:security/cyrus-sasl2 \
 		diffutils>0:textproc/diffutils \
 		fusefs-libs3>0:filesystems/fusefs-libs3 \
 		gettext-tools>0:devel/gettext-tools \
+		git>0:devel/git \
 		gnutls>0:security/gnutls \
 		gsed>0:textproc/gsed \
 		gtk-vnc>0:net/gtk-vnc \
@@ -65,7 +66,7 @@ LIB_DEPENDS=	libdbus-1.so:devel/dbus \
 		libepoxy.so:graphics/libepoxy \
 		libffi.so:devel/libffi \
 		libslirp.so:net/libslirp \
-		libpcap.so:net/libpcap \
+		libpcap.so.1:net/libpcap \
 		libcurl.so:ftp/curl \
 		libpixman-1.so:x11/pixman \
 		libpng.so:graphics/png \
@@ -124,6 +125,8 @@ GL_TUPLE?=	https://gitlab.com:qemu-project:seabios:a6ed6b701f0a57db0569ab98b0661
         	https://gitlab.com:qemu-project:vbootrom:0c37a43527f0ee2b9584e7fb2fdc805e902635ac:/roms/vbootrom
 
 LDFLAGS+=	-Wl,--as-needed
+
+MESON_ARGS+=	--wrap-mode=nodownload
 
 PLIST_FILES=	bin/xemu
 
