@@ -80,9 +80,10 @@ USE_GL=		gl
 USE_GNOME=	gtk30 glib20
 USE_SDL=	sdl2 image2
 SHEBANG_GLOB=	*.sh
+
 USE_GITHUB=	yes
+USE_GITLAB=	nodefault
 GH_ACCOUNT=	xemu-project
-GH_PROJECT=	xemu
 GH_TUPLE?=	openssl:openssl:openssl-3.0.9:openssl/roms/edk2/CryptoPkg/Library/OpensslLib/openssl \
         	ucb-bar:berkeley-softfloat-3:b64af41c3276f97f0e181920400ee056b9c88037:berkeleysoftfloat3/roms/edk2/ArmPkg/Library/ArmSoftFloatLib/berkeley-softfloat-3 \
         	tianocore:edk2-cmocka:cmocka-1.1.5-23-g1cc9cde:edk2cmocka/roms/edk2/UnitTestFrameworkPkg/Library/CmockaLib/cmocka \
@@ -108,21 +109,8 @@ GH_TUPLE?=	openssl:openssl:openssl-3.0.9:openssl/roms/edk2/CryptoPkg/Library/Ope
 		xemu-project:nv2a_vsh_cpu:561fe80da57a881f89000256b459440c0178a7ce:nv2avshcpu/subprojects/nv2a_vsh_cpu \
 		marzer:tomlplusplus:30172438cee64926dc41fdd9c11fb3ba5b2ba9de:tomlplusplus/subprojects/tomlplusplus
 
-USE_GITLAB=	nodefault
-GL_TUPLE?=	https://gitlab.com:qemu-project:seabios:a6ed6b701f0a57db0569ab98b0661c12a6ec3ff8:/roms/seabios \
-        	https://gitlab.com:qemu-project:SLOF:qemu-slof-20190703-123-g3a259df:/roms/SLOF \
-        	https://gitlab.com:qemu-project:ipxe:4bd064de239dab2426b31c9789a1f4d78087dc63:/roms/ipxe \
-        	https://gitlab.com:qemu-project:openbios:c3a19c1e54977a53027d6232050e1e3e39a98a1b:/roms/openbios \
-        	https://gitlab.com:qemu-project:qemu-palcode:99d9b4dcf27d7fbcbadab71bdc88ef6531baf6bf:/roms/qemu-palcode \
-        	https://gitlab.com:qemu-project:u-boot:v2021.07:/roms/u-boot \
-        	https://gitlab.com:qemu-project:skiboot:v7.0:/roms/skiboot \
-        	https://gitlab.com:qemu-project:QemuMacDrivers:90c488d5f4a407342247b9ea869df1c2d9c8e266:/roms/QemuMacDrivers \
-        	https://gitlab.com:qemu-project:seabios-hppa:seabios-hppa-v13-97-ga528f01d:/roms/seabios-hppa \
-        	https://gitlab.com:qemu-project:u-boot-sam460ex:60b3916f33e617a815973c5a6df77055b2e3a588:/roms/u-boot-sam460ex \
-        	https://gitlab.com:qemu-project:edk2:edk2-stable201903-7289-g4dfdca63a9:/roms/edk2 \
-        	https://gitlab.com:qemu-project:opensbi:v1.5.1:/roms/opensbi \
-        	https://gitlab.com:qemu-project:qboot:8ca302e86d685fa05b16e2b208888243da319941:/roms/qboot \
-        	https://gitlab.com:qemu-project:vbootrom:0c37a43527f0ee2b9584e7fb2fdc805e902635ac:/roms/vbootrom
+GL_TUPLE?=	qemu-project:berkeley-softfloat-3:b64af41c3276f97f0e181920400ee056b9c88037:berkeleysoftfloat3/subprojects/berkeley-softfloat-3 \
+		qemu-project:berkeley-testfloat-3:e7af9751d9f9fd3b47911f51a5cfd08af256a9ab:berkeleytestfloat3/subprojects/berkeley-testfloat-3
 
 LDFLAGS+=	-Wl,--as-needed
 
@@ -132,6 +120,10 @@ PLIST_FILES=	bin/xemu
 
 XEMU_VERSION=	0.8.97
 XEMU_COMMIT=	22ea58291dab392a2316f1cf4ced3f52e05142f9
+
+post-extract:
+	@${CP} ${WRKSRC}/subprojects/packagefiles/berkeley-softfloat-3/* ${WRKSRC}/subprojects/berkeley-softfloat-3/
+	@${CP} ${WRKSRC}/subprojects/packagefiles/berkeley-testfloat-3/* ${WRKSRC}/subprojects/berkeley-testfloat-3/
 
 post-patch:
 	@${FIND} ${WRKSRC} -type f -name "*.py" | \
@@ -144,7 +136,7 @@ post-patch:
 		${WRKSRC}/XEMU_COMMIT
 
 do-build:
-	cd ${WRKSRC} && ./build.sh
+	cd ${WRKSRC} && ./build.sh --disable-download
 
 do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/dist/xemu ${STAGEDIR}${PREFIX}/bin/xemu

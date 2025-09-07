@@ -1,4 +1,4 @@
-TIMESTAMP = 1757214985
+TIMESTAMP = 1757277116
 SHA256 (xemu-project-xemu-v0.8.97_GH0.tar.gz) = c719b6cd63f818288479046b99f86e7001324c0486280aa1983230c8d3e96c05
 SIZE (xemu-project-xemu-v0.8.97_GH0.tar.gz) = 41537399
 SHA256 (openssl-openssl-openssl-3.0.9_GH0.tar.gz) = 2eec31f2ac0e126ff68d8107891ef534159c4fcfb095365d4cd4dc57d82616ee
@@ -47,3 +47,7 @@ SHA256 (xemu-project-nv2a_vsh_cpu-561fe80da57a881f89000256b459440c0178a7ce_GH0.t
 SIZE (xemu-project-nv2a_vsh_cpu-561fe80da57a881f89000256b459440c0178a7ce_GH0.tar.gz) = 15248
 SHA256 (marzer-tomlplusplus-30172438cee64926dc41fdd9c11fb3ba5b2ba9de_GH0.tar.gz) = 291254ffe7f2433f90deef878d0d9335534a350a958ea23ecf511b7b2277bf7f
 SIZE (marzer-tomlplusplus-30172438cee64926dc41fdd9c11fb3ba5b2ba9de_GH0.tar.gz) = 1295179
+SHA256 (qemu-project-berkeley-softfloat-3-b64af41c3276f97f0e181920400ee056b9c88037_GL0.tar.gz) = faae889814ea6a292f7ca03d9b36e6c7e95bab2a64777804883cc822b8d48757
+SIZE (qemu-project-berkeley-softfloat-3-b64af41c3276f97f0e181920400ee056b9c88037_GL0.tar.gz) = 148741
+SHA256 (qemu-project-berkeley-testfloat-3-e7af9751d9f9fd3b47911f51a5cfd08af256a9ab_GL0.tar.gz) = e7a09d51dc7e96cb8422c919c85fc3833d4f788567638c9162ef5cd7db59b1df
+SIZE (qemu-project-berkeley-testfloat-3-e7af9751d9f9fd3b47911f51a5cfd08af256a9ab_GL0.tar.gz) = 139308
