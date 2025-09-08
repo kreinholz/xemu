@@ -66,25 +66,7 @@ SHEBANG_GLOB=	*.sh
 
 USE_GITHUB=	yes
 GH_ACCOUNT=	xemu-project
-GH_TUPLE=	openssl:openssl:openssl-3.0.9:openssl/roms/edk2/CryptoPkg/Library/OpensslLib/openssl \
-        	ucb-bar:berkeley-softfloat-3:b64af41c3276f97f0e181920400ee056b9c88037:berkeleysoftfloat3/roms/edk2/ArmPkg/Library/ArmSoftFloatLib/berkeley-softfloat-3 \
-        	tianocore:edk2-cmocka:cmocka-1.1.5-23-g1cc9cde:edk2cmocka/roms/edk2/UnitTestFrameworkPkg/Library/CmockaLib/cmocka \
-        	kkos:oniguruma:v6.9.4_mark1:oniguruma/roms/edk2/MdeModulePkg/Universal/RegularExpressionDxe/oniguruma \
-        	google:brotli:f4153a09f87cbb9c826d8fc12c74642bb2d879ea:brotli/roms/edk2/MdeModulePkg/Library/BrotliCustomDecompressLib/brotli \
-        	google:brotli:f4153a09f87cbb9c826d8fc12c74642bb2d879ea:brotli/roms/edk2/BaseTools/Source/C/BrotliCompress/brotli \
-        	akheron:jansson:v2.13.1:jansson/roms/edk2/RedfishPkg/Library/JsonLib/jansson \
-        	google:googletest:release-1.8.0-2983-g86add134:googletest/roms/edk2/UnitTestFrameworkPkg/Library/GoogleTestLib/googletest \
-        	tianocore:edk2-subhook:83d4e1ebef3588fae48b69a7352cc21801cb70bc:edk2subhook/roms/edk2/UnitTestFrameworkPkg/Library/SubhookLib/subhook \
-        	devicetree-org:pylibfdt:cfff805481bdea27f900c32698171286542b8d3c:pylibfdt/roms/edk2/MdePkg/Library/BaseFdtLib/libfdt \
-        	MIPI-Alliance:public-mipi-sys-t:370b5944c046bab043dd8b133727b2135af7747a:publicmipisyst/roms/edk2/MdePkg/Library/MipiSysTLib/mipisyst \
-        	ARMmbed:mbedtls:v3.3.0:mbedtls/roms/edk2/CryptoPkg/Library/MbedTlsLib/mbedtls \
-        	DMTF:libspdm:50924a4c8145fc721e17208f55814d2b38766fe6:libspdm/roms/edk2/SecurityPkg/DeviceSecurity/SpdmLib/libspdm \
-        	pyca:cryptography:38.0.4:cryptography/roms/edk2/CryptoPkg/Library/OpensslLib/openssl/pyca-cryptography \
-        	krb5:krb5:aa9b4a2a64046afd2fab7cb49c346295874a5fb6:krb5/roms/edk2/CryptoPkg/Library/OpensslLib/openssl/krb5 \
-        	gost-engine:engine:b2b4d629f100eaee9f5942a106b1ccefe85b8808:engine/roms/edk2/CryptoPkg/Library/OpensslLib/openssl/gost-engine \
-       		google:wycheproof:2196000605e45d91097147c9c71f26b72af58003:wycheproof/roms/edk2/CryptoPkg/Library/OpensslLib/openssl/wycheproof \
-        	provider-corner:libprov:8a126e09547630ef900177625626b6156052f0ee:libprov/roms/edk2/CryptoPkg/Library/OpensslLib/openssl/gost-engine/libprov \
-		mborgerson:genconfig:42f85f9a2457e61d7e32542c07723565a284fcd6:genconfig/subprojects/genconfig \
+GH_TUPLE=	mborgerson:genconfig:42f85f9a2457e61d7e32542c07723565a284fcd6:genconfig/subprojects/genconfig \
 		xemu-project:imgui:7219d617a32b594f9a80b2356aec42e0e939e938:imgui/subprojects/imgui \
 		xemu-project:implot:8553562dbb2025fd520f4bed57b094767b96c670:implot/subprojects/implot \
 		qemu:keycodemapdb:f5772a62ec52591ff6870b7e8ef32482371f22c6:keycodemapdb/subprojects/keycodemapdb \
