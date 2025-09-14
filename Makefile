@@ -40,9 +40,7 @@ BUILD_DEPENDS=	gdb>0:devel/gdb \
 		py311-tomli>0:textproc/py-tomli \
 		rpm2cpio>0:archivers/rpm2cpio \
 		socat>0:net/socat \
-		spice-protocol>0:devel/spice-protocol \
 		tesseract>0:graphics/tesseract \
-		virglrenderer>0:x11/virglrenderer \
 		xorriso>0:sysutils/xorriso \
 		nlohmann-json>0:devel/nlohmann-json
 
@@ -52,10 +50,7 @@ LIB_DEPENDS=	libdbus-1.so:devel/dbus \
 		libslirp.so:net/libslirp \
 		libpcap.so.1:net/libpcap \
 		libcurl.so:ftp/curl \
-		libpixman-1.so:x11/pixman \
-		libpng.so:graphics/png \
 		libsamplerate.so:audio/libsamplerate \
-		libspice-server.so:devel/libspice-server \
 		libxxhash.so.0:devel/xxhash
 
 USES=		gl gmake gnome pkgconfig python:build sdl shebangfix
@@ -109,8 +104,27 @@ post-patch:
 	@${REINPLACE_CMD} -e 's|%%XEMU_COMMIT%%|${XEMU_COMMIT}|' \
 		${WRKSRC}/XEMU_COMMIT
 
+OPTIONS_DEFINE=		PIXMAN PNG SPICE SPICE_PROTOCOL VIRGLRENDERER
+OPTIONS_DEFAULT=	PIXMAN PNG
+
+PIXMAN_DESC=		Build with pixman support
+PIXMAN_LIB_DEPENDS=	libpixman-1.so:x11/pixman
+PIXMAN_VARS=		build_sh_args+="--enable-pixman"
+PNG_DESC=		PNG support with libpng
+PNG_LIB_DEPENDS=	libpng.so:graphics/png
+PNG_VARS=		build_sh_args+="--enable-png"
+SPICE_DESC=		Spice server support
+SPICE_LIB_DEPENDS=	libspice-server.so:devel/libspice-server
+SPICE_VARS=		build_sh_args+="--enable-spice"
+SPICE_PROTOCOL_DESC=	Spice protocol support
+SPICE_PROTOCOL_BUILD_DEPENDS=	spice-protocol>0:devel/spice-protocol
+SPICE_PROTOCOL_VARS=	build_sh_args+="--enable-spice-protocol"
+VIRGLRENDERER_DESC=	virgl rendering support
+VIRGLRENDERER_BUILD_DEPENDS=	virglrenderer>0:x11/virglrenderer
+VIRGLRENDERER_VARS=	build_sh_args+="--enable-virglrenderer"
+
 do-build:
-	cd ${WRKSRC} && ./build.sh --disable-download --enable-pixman --enable-png --enable-spice --enable-spice-protocol --enable-virglrenderer --enable-sdl-image
+	cd ${WRKSRC} && ./build.sh --disable-download --enable-sdl-image ${BUILD_SH_ARGS}
 
 do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/dist/xemu ${STAGEDIR}${PREFIX}/bin/xemu
