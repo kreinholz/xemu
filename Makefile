@@ -104,15 +104,36 @@ post-patch:
 	@${REINPLACE_CMD} -e 's|%%XEMU_COMMIT%%|${XEMU_COMMIT}|' \
 		${WRKSRC}/XEMU_COMMIT
 
-OPTIONS_DEFINE=		PIXMAN PNG SPICE SPICE_PROTOCOL VIRGLRENDERER
-OPTIONS_DEFAULT=	PIXMAN PNG
+OPTIONS_DEFINE=		AVX2 AVX512BW GETTEXT JACK PIPEWIRE PIXMAN PNG \
+			PULSEAUDIO SNDIO SPICE SPICE_PROTOCOL VIRGLRENDERER
+OPTIONS_DEFAULT=	AVX2 GETTEXT JACK PIPEWIRE PIXMAN PNG PULSEAUDIO SNDIO \
+			VIRGLRENDERER
 
+AVX2_DESC=		Build with AVX2 optimizations (requires Intel Haswell or newer CPU)
+AVX2_VARS=		build_sh_args+="--enable-avx2"
+AVX512BW_DESC=		Build with AVX512BW optimizations (requires Intel Skylake or newer CPU)
+AVX512BW_VARS=		build_sh_args+="--enable-avx512bw"
+GETTEXT_DESC=		Localization of the GTK+ user interface
+GETTEXT_BUILD_DEPENDS=	gettext-tools>0:devel/gettext-tools
+GETTEXT_VARS=		build_sh_args+="--enable-gettext"
+JACK_DESC=		JACK sound support
+JACK_LIB_DEPENDS=	libjack.so:audio/jack
+JACK_VARS=		build_sh_args+="--enable-jack"
+PIPEWIRE_DESC=		PipeWire sound support
+PIPEWIRE_LIB_DEPENDS=	libpipewire-0.3.so:multimedia/pipewire
+PIPEWIRE_VARS=		build_sh_args+="--enable-pipewire"
 PIXMAN_DESC=		Build with pixman support
 PIXMAN_LIB_DEPENDS=	libpixman-1.so:x11/pixman
 PIXMAN_VARS=		build_sh_args+="--enable-pixman"
 PNG_DESC=		PNG support with libpng
 PNG_LIB_DEPENDS=	libpng.so:graphics/png
 PNG_VARS=		build_sh_args+="--enable-png"
+PULSEAUDIO_DESC=	PulseAudio sound support
+PULSEAUDIO_BUILD_DEPENDS=	pulseaudio>0:audio/pulseaudio
+PULSEAUDIO_VARS=	build_sh_args+="--enable-pa"
+SNDIO_DESC=		sndio sound support
+SNDIO_BUILD_DEPENDS=	sndio>0:audio/sndio
+SNDIO_VARS=		build_sh_args+="--enable-sndio"
 SPICE_DESC=		Spice server support
 SPICE_LIB_DEPENDS=	libspice-server.so:devel/libspice-server
 SPICE_VARS=		build_sh_args+="--enable-spice"
