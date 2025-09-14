@@ -81,7 +81,16 @@ LDFLAGS+=	-Wl,--as-needed
 
 MESON_ARGS+=	--wrap-mode=nodownload
 
-PLIST_FILES=	bin/xemu
+PLIST_FILES=	bin/xemu \
+		share/applications/xemu.desktop \
+		share/applications/xemu.metainfo.xml \
+		share/icons/hicolor/scalable/apps/xemu.svg \
+		share/icons/hicolor/256x256/apps/xemu.png \
+		share/icons/hicolor/128x128/apps/xemu.png \
+		share/icons/hicolor/64x64/apps/xemu.png \
+		share/icons/hicolor/48x48/apps/xemu.png \
+		share/icons/hicolor/32x32/apps/xemu.png \
+		share/icons/hicolor/24x24/apps/xemu.png
 
 XEMU_VERSION=	0.8.97
 XEMU_COMMIT=	22ea58291dab392a2316f1cf4ced3f52e05142f9
@@ -105,5 +114,21 @@ do-build:
 
 do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/dist/xemu ${STAGEDIR}${PREFIX}/bin/xemu
+	${INSTALL_KLD} ${WRKSRC}/ui/xemu.desktop ${STAGEDIR}${PREFIX}/share/applications
+	${INSTALL_KLD} ${WRKSRC}/xemu.metainfo.xml ${STAGEDIR}${PREFIX}/share/applications
+	@${MKDIR} ${STAGEDIR}${PREFIX}/share/icons/hicolor/scalable/apps
+	${INSTALL_KLD} ${WRKSRC}/ui/icons/xemu.svg ${STAGEDIR}${PREFIX}/share/icons/hicolor/scalable/apps
+	@${MKDIR} ${STAGEDIR}${PREFIX}/share/icons/hicolor/256x256/apps
+	${INSTALL_KLD} ${WRKSRC}/ui/icons/xemu_256x256.png ${STAGEDIR}${PREFIX}/share/icons/hicolor/256x256/apps/xemu.png
+	@${MKDIR} ${STAGEDIR}${PREFIX}/share/icons/hicolor/128x128/apps
+	${INSTALL_KLD} ${WRKSRC}/ui/icons/xemu_128x128.png ${STAGEDIR}${PREFIX}/share/icons/hicolor/128x128/apps/xemu.png
+	@${MKDIR} ${STAGEDIR}${PREFIX}/share/icons/hicolor/64x64/apps
+	${INSTALL_KLD} ${WRKSRC}/ui/icons/xemu_64x64.png ${STAGEDIR}${PREFIX}/share/icons/hicolor/64x64/apps/xemu.png
+	@${MKDIR} ${STAGEDIR}${PREFIX}/share/icons/hicolor/48x48/apps
+	${INSTALL_KLD} ${WRKSRC}/ui/icons/xemu_48x48.png ${STAGEDIR}${PREFIX}/share/icons/hicolor/48x48/apps/xemu.png
+	@${MKDIR} ${STAGEDIR}${PREFIX}/share/icons/hicolor/32x32/apps
+	${INSTALL_KLD} ${WRKSRC}/ui/icons/xemu_32x32.png ${STAGEDIR}${PREFIX}/share/icons/hicolor/32x32/apps/xemu.png
+	@${MKDIR} ${STAGEDIR}${PREFIX}/share/icons/hicolor/24x24/apps
+	${INSTALL_KLD} ${WRKSRC}/ui/icons/xemu_24x24.png ${STAGEDIR}${PREFIX}/share/icons/hicolor/24x24/apps/xemu.png
 
 .include <bsd.port.mk>
