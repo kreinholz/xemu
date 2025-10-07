@@ -1,6 +1,6 @@
 PORTNAME=	xemu
 DISTVERSIONPREFIX=	v
-DISTVERSION=	0.8.105
+DISTVERSION=	0.8.106
 CATEGORIES=	emulators
 
 MAINTAINER=	kreinholz@gmail.com
@@ -87,8 +87,8 @@ PLIST_FILES=	bin/xemu \
 		share/icons/hicolor/32x32/apps/xemu.png \
 		share/icons/hicolor/24x24/apps/xemu.png
 
-XEMU_VERSION=	0.8.97
-XEMU_COMMIT=	22ea58291dab392a2316f1cf4ced3f52e05142f9
+XEMU_VERSION=	0.8.106
+XEMU_COMMIT=	1973482781c120ceae88e2e0d89fa522b35b9639
 
 post-extract:
 	@${CP} ${WRKSRC}/subprojects/packagefiles/berkeley-softfloat-3/* ${WRKSRC}/subprojects/berkeley-softfloat-3/
