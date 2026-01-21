@@ -94,6 +94,15 @@ post-extract:
 	@${CP} ${WRKSRC}/subprojects/packagefiles/berkeley-softfloat-3/* ${WRKSRC}/subprojects/berkeley-softfloat-3/
 	@${CP} ${WRKSRC}/subprojects/packagefiles/berkeley-testfloat-3/* ${WRKSRC}/subprojects/berkeley-testfloat-3/
 
+.include <bsd.port.pre.mk>
+
+# Fix build on FreeBSD 15+ where native inotify is available
+.if exists(/usr/include/sys/inotify.h)
+EXTRA_PATCHES+= ${FILESDIR}/inotify-meson.build ${FILESDIR}/inotify-util_meson.build
+.else
+EXTRA_PATCHES+= ${FILESDIR}/kqueue-meson.build
+.endif
+
 post-patch:
 	@${FIND} ${WRKSRC} -type f -name "*.py" | \
 		${XARGS} ${REINPLACE_CMD} -e 's|python3|python${PYTHON_VER}|g'
