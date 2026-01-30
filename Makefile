@@ -1,6 +1,6 @@
 PORTNAME=	xemu
 DISTVERSIONPREFIX=	v
-DISTVERSION=	0.8.106
+DISTVERSION=	0.8.133
 CATEGORIES=	emulators
 
 MAINTAINER=	kreinholz@gmail.com
@@ -62,7 +62,7 @@ SHEBANG_GLOB=	*.sh
 USE_GITHUB=	yes
 GH_ACCOUNT=	xemu-project
 GH_TUPLE=	mborgerson:genconfig:42f85f9a2457e61d7e32542c07723565a284fcd6:genconfig/subprojects/genconfig \
-		xemu-project:imgui:7219d617a32b594f9a80b2356aec42e0e939e938:imgui/subprojects/imgui \
+		xemu-project:imgui:b911105fca3ca1b025706dd168e5798070f143a1:imgui/subprojects/imgui \
 		xemu-project:implot:8553562dbb2025fd520f4bed57b094767b96c670:implot/subprojects/implot \
 		qemu:keycodemapdb:f5772a62ec52591ff6870b7e8ef32482371f22c6:keycodemapdb/subprojects/keycodemapdb \
 		xemu-project:nv2a_vsh_cpu:561fe80da57a881f89000256b459440c0178a7ce:nv2avshcpu/subprojects/nv2a_vsh_cpu \
@@ -87,8 +87,8 @@ PLIST_FILES=	bin/xemu \
 		share/icons/hicolor/32x32/apps/xemu.png \
 		share/icons/hicolor/24x24/apps/xemu.png
 
-XEMU_VERSION=	0.8.106
-XEMU_COMMIT=	1973482781c120ceae88e2e0d89fa522b35b9639
+XEMU_VERSION=	0.8.133
+XEMU_COMMIT=	26fcbe54f17e496bdf530dad9f237e74e2f943fc
 
 post-extract:
 	@${CP} ${WRKSRC}/subprojects/packagefiles/berkeley-softfloat-3/* ${WRKSRC}/subprojects/berkeley-softfloat-3/
