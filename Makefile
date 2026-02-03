@@ -154,7 +154,7 @@ VIRGLRENDERER_BUILD_DEPENDS=	virglrenderer>0:x11/virglrenderer
 VIRGLRENDERER_VARS=	build_sh_args+="--enable-virglrenderer"
 
 do-build:
-	cd ${WRKSRC} && ./build.sh --disable-download --enable-sdl-image ${BUILD_SH_ARGS}
+	cd ${WRKSRC} && ./build.sh --disable-docs --disable-download --enable-sdl-image ${BUILD_SH_ARGS}
 
 do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/dist/xemu ${STAGEDIR}${PREFIX}/bin/xemu
