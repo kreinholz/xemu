@@ -1,6 +1,6 @@
 PORTNAME=	xemu
 DISTVERSIONPREFIX=	v
-DISTVERSION=	0.8.133
+DISTVERSION=	0.8.134
 CATEGORIES=	emulators
 
 MAINTAINER=	kreinholz@gmail.com
@@ -56,7 +56,7 @@ LIB_DEPENDS=	libdbus-1.so:devel/dbus \
 USES=		gl gmake gnome pkgconfig python:build sdl shebangfix
 USE_GL=		gl
 USE_GNOME=	gtk30 glib20
-USE_SDL=	sdl2 image2
+USE_SDL=	sdl3 image3
 SHEBANG_GLOB=	*.sh
 
 USE_GITHUB=	yes
@@ -87,8 +87,8 @@ PLIST_FILES=	bin/xemu \
 		share/icons/hicolor/32x32/apps/xemu.png \
 		share/icons/hicolor/24x24/apps/xemu.png
 
-XEMU_VERSION=	0.8.133
-XEMU_COMMIT=	26fcbe54f17e496bdf530dad9f237e74e2f943fc
+XEMU_VERSION=	0.8.134
+XEMU_COMMIT=	fc9980d2962cbec656253106ea2e121fab1e68d4
 
 post-extract:
 	@${CP} ${WRKSRC}/subprojects/packagefiles/berkeley-softfloat-3/* ${WRKSRC}/subprojects/berkeley-softfloat-3/
@@ -112,6 +112,8 @@ post-patch:
 		${WRKSRC}/XEMU_VERSION
 	@${REINPLACE_CMD} -e 's|%%XEMU_COMMIT%%|${XEMU_COMMIT}|' \
 		${WRKSRC}/XEMU_COMMIT
+	@${REINPLACE_CMD} -e 's|SDL3_image|sdl3-image|' \
+		${WRKSRC}/meson.build
 
 OPTIONS_DEFINE=		AVX2 AVX512BW GETTEXT JACK PIPEWIRE PIXMAN PNG \
 			PULSEAUDIO SNDIO SPICE SPICE_PROTOCOL VIRGLRENDERER

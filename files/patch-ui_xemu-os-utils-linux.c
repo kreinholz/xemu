@@ -1,4 +1,4 @@
---- ui/xemu-os-utils-linux.c.orig	2025-09-05 21:10:42 UTC
+--- ui/xemu-os-utils-linux.c.orig	2026-03-03 15:07:43 UTC
 +++ ui/xemu-os-utils-linux.c
 @@ -21,8 +21,8 @@
  #include <stdio.h>
@@ -25,7 +25,7 @@
  
  		os_info = g_strdup_printf("%s",
 -			os_release ? os_release : "Unknown Distro"
-+			os_release ? os_release : "Unknown BSD"
++			os_release ? os_release : "Unknown FreeBSD"
  			);
  		if (os_release) {
  			free(os_release);
