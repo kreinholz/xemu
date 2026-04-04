@@ -2,6 +2,8 @@ PORTNAME=	xemu
 DISTVERSIONPREFIX=	v
 DISTVERSION=	0.8.134
 CATEGORIES=	emulators
+MASTER_SITES=	https://github.com/xemu-project/${PORTNAME}/releases/download/${DISTVERSIONPREFIX}${DISTVERSION}/
+DISTNAME=	${PORTNAME}-${DISTVERSION}
 
 MAINTAINER=	kreinholz@gmail.com
 COMMENT=	A free and open-source application that emulates the original \
@@ -47,30 +49,19 @@ BUILD_DEPENDS=	gdb>0:devel/gdb \
 LIB_DEPENDS=	libdbus-1.so:devel/dbus \
 		libepoxy.so:graphics/libepoxy \
 		libffi.so:devel/libffi \
+		libpulse.so:audio/pulseaudio \
 		libslirp.so:net/libslirp \
+		libsndio.so:audio/sndio \
 		libpcap.so.1:net/libpcap \
 		libcurl.so:ftp/curl \
 		libsamplerate.so:audio/libsamplerate \
 		libxxhash.so.0:devel/xxhash
 
-USES=		gl gmake gnome pkgconfig python:build sdl shebangfix
+USES=		gl gmake gnome pkgconfig python:build sdl shebangfix tar:zst
 USE_GL=		gl
 USE_GNOME=	gtk30 glib20
 USE_SDL=	sdl3 image3
 SHEBANG_GLOB=	*.sh
-
-USE_GITHUB=	yes
-GH_ACCOUNT=	xemu-project
-GH_TUPLE=	mborgerson:genconfig:42f85f9a2457e61d7e32542c07723565a284fcd6:genconfig/subprojects/genconfig \
-		xemu-project:imgui:b911105fca3ca1b025706dd168e5798070f143a1:imgui/subprojects/imgui \
-		xemu-project:implot:8553562dbb2025fd520f4bed57b094767b96c670:implot/subprojects/implot \
-		qemu:keycodemapdb:f5772a62ec52591ff6870b7e8ef32482371f22c6:keycodemapdb/subprojects/keycodemapdb \
-		xemu-project:nv2a_vsh_cpu:561fe80da57a881f89000256b459440c0178a7ce:nv2avshcpu/subprojects/nv2a_vsh_cpu \
-		marzer:tomlplusplus:30172438cee64926dc41fdd9c11fb3ba5b2ba9de:tomlplusplus/subprojects/tomlplusplus
-
-USE_GITLAB=	nodefault
-GL_TUPLE=	qemu-project:berkeley-softfloat-3:b64af41c3276f97f0e181920400ee056b9c88037:berkeleysoftfloat3/subprojects/berkeley-softfloat-3 \
-		qemu-project:berkeley-testfloat-3:e7af9751d9f9fd3b47911f51a5cfd08af256a9ab:berkeleytestfloat3/subprojects/berkeley-testfloat-3
 
 LDFLAGS+=	-Wl,--as-needed
 
@@ -87,41 +78,21 @@ PLIST_FILES=	bin/xemu \
 		share/icons/hicolor/32x32/apps/xemu.png \
 		share/icons/hicolor/24x24/apps/xemu.png
 
-XEMU_VERSION=	0.8.134
-XEMU_COMMIT=	fc9980d2962cbec656253106ea2e121fab1e68d4
-
 post-extract:
 	@${CP} ${WRKSRC}/subprojects/packagefiles/berkeley-softfloat-3/* ${WRKSRC}/subprojects/berkeley-softfloat-3/
 	@${CP} ${WRKSRC}/subprojects/packagefiles/berkeley-testfloat-3/* ${WRKSRC}/subprojects/berkeley-testfloat-3/
-
-.include <bsd.port.pre.mk>
-
-# Fix build on FreeBSD 15+ where native inotify is available
-.if exists(/usr/include/sys/inotify.h)
-EXTRA_PATCHES+= ${FILESDIR}/inotify-meson.build ${FILESDIR}/inotify-util_meson.build
-.else
-EXTRA_PATCHES+= ${FILESDIR}/kqueue-meson.build
-.endif
 
 post-patch:
 	@${FIND} ${WRKSRC} -type f -name "*.py" | \
 		${XARGS} ${REINPLACE_CMD} -e 's|python3|python${PYTHON_VER}|g'
 	@${FIND} ${WRKSRC} -type f -name "*.sh" | \
 		${XARGS} ${REINPLACE_CMD} -e 's|python3|python${PYTHON_VER}|g'
-	@${REINPLACE_CMD} -e 's|%%XEMU_VERSION%%|${XEMU_VERSION}|' \
-		${WRKSRC}/XEMU_VERSION
-	@${REINPLACE_CMD} -e 's|%%XEMU_COMMIT%%|${XEMU_COMMIT}|' \
-		${WRKSRC}/XEMU_COMMIT
-	@${REINPLACE_CMD} -e 's|SDL3_image|sdl3-image|' \
-		${WRKSRC}/meson.build
 
-OPTIONS_DEFINE=		AVX2 AVX512BW GETTEXT JACK PIPEWIRE PIXMAN PNG \
+OPTIONS_DEFINE=		AVX512BW GETTEXT JACK PIPEWIRE PIXMAN PNG \
 			PULSEAUDIO SNDIO SPICE SPICE_PROTOCOL VIRGLRENDERER
-OPTIONS_DEFAULT=	AVX2 GETTEXT JACK PIPEWIRE PIXMAN PNG PULSEAUDIO SNDIO \
+OPTIONS_DEFAULT=	GETTEXT JACK PIPEWIRE PIXMAN PNG PULSEAUDIO SNDIO \
 			VIRGLRENDERER
 
-AVX2_DESC=		Build with AVX2 optimizations (requires Intel Haswell or newer CPU)
-AVX2_VARS=		build_sh_args+="--enable-avx2"
 AVX512BW_DESC=		Build with AVX512BW optimizations (requires Intel Skylake or newer CPU)
 AVX512BW_VARS=		build_sh_args+="--enable-avx512bw"
 GETTEXT_DESC=		Localization of the GTK+ user interface
