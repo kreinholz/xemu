@@ -44,7 +44,8 @@ BUILD_DEPENDS=	gdb>0:devel/gdb \
 		socat>0:net/socat \
 		tesseract>0:graphics/tesseract \
 		xorriso>0:sysutils/xorriso \
-		nlohmann-json>0:devel/nlohmann-json
+		nlohmann-json>0:devel/nlohmann-json \
+		python3>0:lang/python3
 
 LIB_DEPENDS=	libdbus-1.so:devel/dbus \
 		libepoxy.so:graphics/libepoxy \
@@ -81,12 +82,6 @@ PLIST_FILES=	bin/xemu \
 post-extract:
 	@${CP} ${WRKSRC}/subprojects/packagefiles/berkeley-softfloat-3/* ${WRKSRC}/subprojects/berkeley-softfloat-3/
 	@${CP} ${WRKSRC}/subprojects/packagefiles/berkeley-testfloat-3/* ${WRKSRC}/subprojects/berkeley-testfloat-3/
-
-post-patch:
-	@${FIND} ${WRKSRC} -type f -name "*.py" | \
-		${XARGS} ${REINPLACE_CMD} -e 's|python3|python${PYTHON_VER}|g'
-	@${FIND} ${WRKSRC} -type f -name "*.sh" | \
-		${XARGS} ${REINPLACE_CMD} -e 's|python3|python${PYTHON_VER}|g'
 
 OPTIONS_DEFINE=		AVX512BW GETTEXT JACK PIPEWIRE PIXMAN PNG \
 			PULSEAUDIO SNDIO SPICE SPICE_PROTOCOL VIRGLRENDERER
