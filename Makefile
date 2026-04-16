@@ -33,7 +33,6 @@ BUILD_DEPENDS=	gdb>0:devel/gdb \
 		libtasn1>0:security/libtasn1 \
 		mtools>0:filesystems/mtools \
 		opencv>0:graphics/opencv \
-		py311-numpy>0:math/py-numpy \
 		py311-pillow>0:graphics/py-pillow \
 		py311-pip>0:devel/py-pip \
 		py311-pyyaml>0:devel/py-pyyaml \
@@ -62,6 +61,7 @@ USES=		gl gmake gnome pkgconfig python:build sdl shebangfix tar:zst
 USE_GL=		gl
 USE_GNOME=	gtk30 glib20
 USE_SDL=	sdl3 image3
+PYTHON_BUILD_DEPENDS=	${PYNUMPY}
 SHEBANG_GLOB=	*.sh
 
 LDFLAGS+=	-Wl,--as-needed
