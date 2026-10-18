@@ -1,3 +1,5 @@
-TIMESTAMP = 1780930672
-SHA256 (xemu-0.8.136.tar.zst) = 92a09305a87d7dabaecc335fa54ca888117aab10fe22af6ad73fc0d3cdd20c1f
-SIZE (xemu-0.8.136.tar.zst) = 176511992
+TIMESTAMP = 1792276092
+SHA256 (xemu-0.8.137.tar.zst) = ac1a55237825e29f34046bdb4b968ae75b2e881f019021f5faf9a859697a0d66
+SIZE (xemu-0.8.137.tar.zst) = 99873446
+SHA256 (mborgerson-dsp56300-v0.1.3_GH0.tar.gz) = b1efac0ee05d3e1bdd6b336717149c19f86f9510fb7b7775afc223b6babf37e8
+SIZE (mborgerson-dsp56300-v0.1.3_GH0.tar.gz) = 388279

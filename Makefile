@@ -1,9 +1,17 @@
 PORTNAME=	xemu
 DISTVERSIONPREFIX=	v
-DISTVERSION=	0.8.136
+DISTVERSION=	0.8.137
 CATEGORIES=	emulators
 MASTER_SITES=	https://github.com/xemu-project/${PORTNAME}/releases/download/${DISTVERSIONPREFIX}${DISTVERSION}/
 DISTNAME=	${PORTNAME}-${DISTVERSION}
+
+SUBPROJECT_DIST=	mborgerson-dsp56300-v0.1.3_GH0.tar.gz
+DISTFILES=	${DISTNAME}${EXTRACT_SUFX} \
+		${SUBPROJECT_DIST}:subproject
+
+EXTRACT_ONLY=	${DISTNAME}${EXTRACT_SUFX}
+
+MASTER_SITES+=	https://github.com
 
 MAINTAINER=	kreinholz@gmail.com
 COMMENT=	A free and open-source application that emulates the original \
@@ -43,7 +51,8 @@ BUILD_DEPENDS=	gdb>0:devel/gdb \
 		socat>0:net/socat \
 		tesseract>0:graphics/tesseract \
 		xorriso>0:sysutils/xorriso \
-		nlohmann-json>0:devel/nlohmann-json
+		nlohmann-json>0:devel/nlohmann-json \
+		rust>0:lang/rust
 
 LIB_DEPENDS=	libdbus-1.so:devel/dbus \
 		libepoxy.so:graphics/libepoxy \
@@ -81,6 +90,8 @@ PLIST_FILES=	bin/xemu \
 post-extract:
 	@${CP} ${WRKSRC}/subprojects/packagefiles/berkeley-softfloat-3/* ${WRKSRC}/subprojects/berkeley-softfloat-3/
 	@${CP} ${WRKSRC}/subprojects/packagefiles/berkeley-testfloat-3/* ${WRKSRC}/subprojects/berkeley-testfloat-3/
+	@${CP} ${DISTDIR}/${SUBPROJECT_DIST} ${WRKSRC}/subprojects/dsp56300/
+	@${MV} ${WRKSRC}/subprojects/dsp56300/${SUBPROJECT_DIST} ${WRKSRC}/subprojects/dsp56300/dsp56300-0.1.3.tar.gz
 
 post-patch:
 	@${REINPLACE_CMD} -e 's|python3|python${PYTHON_VER}|g' \
